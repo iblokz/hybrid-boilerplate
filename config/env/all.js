@@ -16,7 +16,7 @@ var _path = {
 
 module.exports = {
 	app: {
-		title: 'Restify Full Example',
+		title: 'Hybrid Boilerplate',
 		description: '',
 		keywords: ''
 	},
