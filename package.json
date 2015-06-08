@@ -11,12 +11,16 @@
   "dependencies": {
     "body-parser": "^1.12.4",
     "chalk": "^1.0.0",
+    "connect-flash": "^0.1.1",
     "express": "^4.12.4",
     "iblokz-node-restify": "git://github.com/iblokz/node-restify",
     "jade": "^1.10.0",
+    "lodash": "^3.9.3",
     "method-override": "^2.3.3",
+    "moment": "^2.10.3",
     "mongoose": "^4.0.5",
     "passport": "^0.2.2",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "q": "^1.4.1"
   }
 }
