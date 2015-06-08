@@ -14,5 +14,16 @@
     "src/lib",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "ionic": "~1.0.0",
+    "angular": "~1.4.0",
+    "angular-resource": "~1.4.0",
+    "ui-router": "~0.2.15",
+    "bootstrap": "~3.3.4",
+    "font-awesome": "~4.3.0",
+    "lodash": "~3.9.3",
+    "moment": "~2.10.3",
+    "q": "1.x"
+  }
 }
