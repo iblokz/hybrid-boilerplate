@@ -11,13 +11,14 @@ var sh = require('shelljs');
 var es = require('event-stream');
 
 var paths = {
-	sass: ['./src/sass/**/*.scss']
+	sass: ['./src/*/sass/**/*.scss'],
+	jade: ['./src/*/jade/**/*.jade']
 };
 
 gulp.task('sass', function(done) {
 	// www
 	es.concat(
-		gulp.src('./src/sass/www/style.scss')
+		gulp.src('./src/www/sass/style.scss')
 			.pipe(sass({
 				errLogToConsole: true
 			}))
@@ -28,7 +29,7 @@ gulp.task('sass', function(done) {
 			.pipe(rename({ extname: '.min.css' }))
 			.pipe(gulp.dest('./www/css/')),
 		// mobile
-		gulp.src('./src/sass/mobile/style.scss')
+		gulp.src('./src/mobile/sass/style.scss')
 			.pipe(sass({
 				errLogToConsole: true
 			}))
@@ -38,6 +39,33 @@ gulp.task('sass', function(done) {
 			}))
 			.pipe(rename({ extname: '.min.css' }))
 			.pipe(gulp.dest('./mobile/www/css/'))
+	).on('end', done);
+});
+
+
+gulp.task('jade', function(done) {
+	// TODO: get from config
+	var YOUR_LOCALS = {
+		mobile: {
+			title: "Mobile App"
+		},
+		www: {
+			title: "Web App"
+		}
+	};
+	es.concat(
+		gulp.src('./src/www/jade/**/*.jade')
+			.pipe(jade({
+				locals: YOUR_LOCALS,
+				pretty: true
+			}))
+			.pipe(gulp.dest('./www/')),
+		gulp.src('./src/mobile/jade/**/*.jade')
+			.pipe(jade({
+				locals: YOUR_LOCALS,
+				pretty: true
+			}))
+			.pipe(gulp.dest('./mobile/www/'))
 	).on('end', done);
 });
 
@@ -51,7 +79,8 @@ gulp.task('nodemon', function () {
 
 gulp.task('watch', function() {
 	gulp.watch(paths.sass, ['sass']);
+	gulp.watch(paths.jade, ['jade']);
 });
 
 
-gulp.task('default', ['sass','watch','nodemon']);
+gulp.task('default', ['sass','jade','watch','nodemon']);
