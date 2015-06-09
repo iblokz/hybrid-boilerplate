@@ -9,10 +9,14 @@ var nodemon = require('gulp-nodemon');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 var es = require('event-stream');
+var bowerFiles = require('main-bower-files');
+var gulpFilter = require('gulp-filter');
+var del = require('del');
 
 var paths = {
 	sass: ['./src/*/sass/**/*.scss'],
-	jade: ['./src/*/jade/**/*.jade']
+	jade: ['./src/*/jade/**/*.jade'],
+	js: ['./src/*/js/**/*.js']
 };
 
 gulp.task('sass', function(done) {
@@ -69,6 +73,40 @@ gulp.task('jade', function(done) {
 	).on('end', done);
 });
 
+
+gulp.task("bower-files", function(done){
+
+	var filterForWww = gulpFilter(['*','!*ionic*']);
+	var filterForMobile = gulpFilter(['*','!*bootstrap*']);
+	del([
+		'./www/lib/**/*',
+		'./mobile/www/lib/**/*'
+	], function(){
+		gulp.src(bowerFiles())
+			.pipe(filterForWww)
+			.pipe(gulp.dest("./www/lib"))
+			.pipe(filterForWww.restore())
+			.pipe(filterForMobile)
+			.pipe(gulp.dest("./mobile/www/lib"))
+			.on('end',done)
+	})
+});
+
+gulp.task('js', function(done) {
+		//.pipe( uglify() )
+		//.pipe( concat('all.min.js'))
+	es.concat(
+		gulp.src('./src/common/js/**/*.js')
+			.pipe( gulp.dest('./www/js/'))
+			.pipe( gulp.dest('./mobile/www/js/')),
+		gulp.src('./src/mobile/js/**/*.js')
+			.pipe( gulp.dest('./mobile/www/js/')),
+		gulp.src('./src/www/js/**/*.js')
+			.pipe( gulp.dest('./www/js/'))
+	).on('end',done);
+});
+
+
 gulp.task('nodemon', function () {
 	nodemon({
 		script: 'index.js',
@@ -80,7 +118,9 @@ gulp.task('nodemon', function () {
 gulp.task('watch', function() {
 	gulp.watch(paths.sass, ['sass']);
 	gulp.watch(paths.jade, ['jade']);
+	gulp.watch(paths.js, ['js']);
 });
 
+gulp.task('setup', ['sass','jade','js','bower-files'])
 
-gulp.task('default', ['sass','jade','watch','nodemon']);
+gulp.task('serve', ['watch','nodemon']);

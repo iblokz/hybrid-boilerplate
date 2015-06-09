@@ -1,11 +1,30 @@
 extends ../../common/jade/layout
 
 block styles
-	link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.css')
-	link(rel='stylesheet', href='/lib/font-awesome/css/font-awesome.css')
+	link(rel='stylesheet', href='/lib/bootstrap.css')
+	link(rel='stylesheet', href='/lib/font-awesome.css')
 
 block content
-	h1 Web App Here
-	.btn.btn-primary Yes
+	section(ng-app="hybrid")
+		nav.navbar.navbar-default
+			.container
+				.navbar-header
+					button.navbar-toggle.collapsed(data-toggle="collapse",data-target="#my-menu")
+						i.fa.fa-bars
+					a(ui-sref="home").navbar-brand My Title
+
+				.collapse.navbar-collapse#my-menu
+					ul.nav.navbar-nav.navbar-left
+						li: a Menu Item 1
+		.container(ui-view="")
+			
 
 block scripts
+	script(type='text/javascript', src='/lib/jquery.js')
+	script(type='text/javascript', src='/lib/bootstrap.js')
+	script(type='text/javascript', src='/lib/angular.js')
+	script(type='text/javascript', src='/lib/angular-ui-router.js')
+	script(type='text/javascript', src='/lib/angular-resource.js')
+	//-script(type='text/javascript', src='/lib/angular-cookies.js')
+	script(type='text/javascript', src='/js/app.js')
+
