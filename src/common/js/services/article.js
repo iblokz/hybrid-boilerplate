@@ -15,7 +15,7 @@ app.factory('Article', ['$resource', function($resource) {
 		}
 	}
 
-	var Article = $resource('http://localhost:3000/api/articles/:_id', { _id: '@_id' }, defaultActions);
+	var Article = $resource('http://192.168.43.98:3000/api/articles/:_id', { _id: '@_id' }, defaultActions);
 
 	return Article;
 }]);

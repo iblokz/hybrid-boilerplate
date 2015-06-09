@@ -78,6 +78,16 @@ app.config(function($ionicConfigProvider, $stateProvider, $urlRouterProvider) {
 				controller: 'AccountCtrl'
 			}
 		}
+	})
+
+	.state('tab.rest', {
+		url: '/rest',
+		views: {
+			'tab-rest': {
+				templateUrl: 'states/tab/rest.html',
+				controller: 'RestCtrl'
+			}
+		}
 	});
 
 	// if none of the above states are matched, use this as the fallback
