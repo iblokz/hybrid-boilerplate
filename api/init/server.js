@@ -2,14 +2,21 @@
 
 var path = require('path');
 var http = require('http');
-var fileUtil = require('../util/file');
-var passport = require('passport');
 
 var express = require('express');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 var methodOverride = require('method-override');
+var cookieParser = require('cookie-parser');
 
+var passport = require('passport');
+var mongoStore = require('connect-mongo')({
+	session: session
+});
 var flash = require('connect-flash');
+
+
+var fileUtil = require('../util/file');
 
 // restify
 var restify = require("iblokz-node-restify");
@@ -40,6 +47,22 @@ module.exports = function(config, db){
 	app.use(bodyParser.json());
 	app.use(methodOverride());
 
+	app.use(cookieParser());
+
+	// Express MongoDB session storage
+	app.use(session({
+		saveUninitialized: true,
+		resave: true,
+		secret: config.sessionSecret,
+		store: new mongoStore({
+			db: db.connection.db,
+			collection: config.sessionCollection
+		}),
+		cookie: config.sessionCookie,
+		name: config.sessionName
+	}));
+
+	// use passport session
 	app.use(passport.initialize());
 	app.use(passport.session());
 
@@ -57,7 +80,7 @@ module.exports = function(config, db){
 
 	// Load Routes
 	fileUtil.walk(config.path.routes, /(.*)\.(js$|coffee$)/).forEach(function(routePath) {
-		require(path.resolve(routePath))(app);
+		require(path.resolve(routePath))(app, config);
 	});
 
 	// TODO: load additional routes
