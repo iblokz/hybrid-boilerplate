@@ -8,10 +8,10 @@ block styles
 
 
 block content
-	section(ng-app="starter")
-			ion-nav-bar.bar-stable(align-title="center")
-				ion-nav-back-button
-			ion-nav-view
+	section(ng-app="hybrid")
+		ion-nav-bar.bar-stable(align-title="center")
+			ion-nav-back-button
+		ion-nav-view
 
 block scripts
 	//- angular and ionic
@@ -25,5 +25,8 @@ block scripts
 	//- cordova related
 	script(src="cordova.js")
 	script(src="js/app.js")
-	script(src="js/controllers.js")
-	script(src="js/services.js")
+	script(src="js/services/article.js")
+	script(src="js/services/chat.js")
+	script(src="js/controllers/tab/dash.js")
+	script(src="js/controllers/tab/chats.js")
+	script(src="js/controllers/tab/account.js")

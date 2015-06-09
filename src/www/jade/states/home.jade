@@ -1,2 +1,7 @@
 h1 Web App Here
 .btn.btn-primary Yes
+
+.row(ng-repeat="article in articles")
+	.col-xs-12
+		h2 {{ article.title }}
+		p {{ article.body}}

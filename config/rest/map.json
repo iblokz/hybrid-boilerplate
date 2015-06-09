@@ -22,15 +22,7 @@
 				"crud": true,
 				"contentType": "json"
 			},
-			"articles": {
-				"_meta": {
-					"access": {
-						"admin": "all",
-						"publisher": "own",
-						"user": "list,view"
-					}
-				}
-			},
+			"articles": {},
 			"users": {}
 		}
 	}

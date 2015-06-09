@@ -5,26 +5,26 @@ block styles
 	link(rel='stylesheet', href='/lib/font-awesome.css')
 
 block content
-	section(ng-app="hybrid")
-		nav.navbar.navbar-default
-			.container
-				.navbar-header
-					button.navbar-toggle.collapsed(data-toggle="collapse",data-target="#my-menu")
-						i.fa.fa-bars
-					a(ui-sref="home").navbar-brand My Title
-
-				.collapse.navbar-collapse#my-menu
-					ul.nav.navbar-nav.navbar-left
-						li: a Menu Item 1
+	section(ng-app="hybrid",ng-controller="MainCtrl")
+		include nav
 		.container(ui-view="")
 			
 
 block scripts
+	//- deps
 	script(type='text/javascript', src='/lib/jquery.js')
 	script(type='text/javascript', src='/lib/bootstrap.js')
 	script(type='text/javascript', src='/lib/angular.js')
 	script(type='text/javascript', src='/lib/angular-ui-router.js')
 	script(type='text/javascript', src='/lib/angular-resource.js')
-	//-script(type='text/javascript', src='/lib/angular-cookies.js')
+	script(type='text/javascript', src='/lib/angular-cookies.js')
+	//- app
 	script(type='text/javascript', src='/js/app.js')
+	script(type='text/javascript', src='/js/services/auth.js')
+	script(type='text/javascript', src='/js/services/user.js')
+	script(type='text/javascript', src='/js/services/article.js')
+	script(type='text/javascript', src='/js/controllers/main.js')
+	script(type='text/javascript', src='/js/controllers/home.js')
+	script(type='text/javascript', src='/js/controllers/admin/users.js')
+	script(type='text/javascript', src='/js/controllers/admin/articles.js')
 

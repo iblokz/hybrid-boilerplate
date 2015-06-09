@@ -11,7 +11,7 @@ function createAdminIfNotExists(){
 		email: 'admin',
 		role: 'admin',
 		active: true,
-		password: '1234'
+		password: '12345678'
 	}
 
 	User.findOne({email:'admin', role: 'admin'}, function(err, foundUser){
@@ -19,7 +19,7 @@ function createAdminIfNotExists(){
 		if(!foundUser){
 			var user = new User(userData);
 			user.save(function(err, savedUser){
-				//console.log(err, savedUser);
+				console.log(err, savedUser);
 			})
 		}
 	})

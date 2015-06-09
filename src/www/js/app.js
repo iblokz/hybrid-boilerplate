@@ -1,9 +1,10 @@
-"use strict"
+"use strict";
 
 var app = angular.module('hybrid', [
 	'ui.router',
-	'ngResource'
-	]);
+	'ngResource',
+	'ngCookies'
+]);
 
 app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationProvider',
 	function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider) {
@@ -13,7 +14,33 @@ app.config(['$stateProvider', '$urlRouterProvider', '$httpProvider', '$locationP
 		$stateProvider
 			.state('home', {
 				url : '/',
+				controller: 'HomeCtrl',
 				templateUrl: '/states/home.html'
+			})
+			.state('about', {
+				url : '/about',
+				templateUrl: '/states/about.html'
+			})
+			.state('login', {
+				url : '/login',
+				templateUrl: '/states/login.html'
+			})
+			.state('admin', {
+				url : '/admin',
+				templateUrl: '/states/admin/index.html',
+				access: ["admin"]
+			})
+			.state('admin.users', {
+				url : '/users',
+				controller: 'AdminUsersCtrl',
+				templateUrl: '/states/admin/users.html',
+				access: ["admin"]
+			})
+			.state('admin.articles', {
+				url : '/articles',
+				controller: 'AdminArticlesCtrl',
+				templateUrl: '/states/admin/articles.html',
+				access: ["admin"]
 			})
 
 		$locationProvider.hashPrefix('!');
