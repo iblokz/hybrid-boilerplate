@@ -111,6 +111,7 @@ gulp.task('nodemon', function () {
 	nodemon({
 		script: 'index.js',
 		ext: 'js json',
+		ignore: ["src/*","www/*","mobile/*"],
 		env: { 'NODE_ENV': 'development' }
 	})
 })
@@ -121,6 +122,8 @@ gulp.task('watch', function() {
 	gulp.watch(paths.js, ['js']);
 });
 
-gulp.task('setup', ['sass','jade','js','bower-files'])
+gulp.task('build', ['sass','jade','js','bower-files'])
 
 gulp.task('serve', ['watch','nodemon']);
+
+gulp.task('default',['build','serve']);
